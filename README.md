@@ -1,4 +1,4 @@
-* Summary
+# Summary
 These scripts will connect to the Freshdesk APIs using Python 3. Some of the planned features are:
   - Get all open tickets and insert into a database
   - Get all new_and_my_open tickets
