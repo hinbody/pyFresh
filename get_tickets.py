@@ -14,6 +14,18 @@ auth = "Basic %s" % b64string
 headers = {"Authorization": auth}
 
 def get_all_open_tickets():
-  """Returns a Requests object containing all data from all open tickets"""
+  """Returns a Requests object containing all data from all open tickets
+  
+  currently only gets up to 60 tickets
+  """
   r = requests.get(baseurl + '/helpdesk/tickets/filter/open?format=json', headers = headers)
-  return r
+  r1 = requests.get(baseurl + '/helpdesk/tickets/filter/open?format=json&page=2', headers = headers)
+  r2 = requests.get(baseurl + '/helpdesk/tickets/filter/open?format=json&page=3', headers = headers)
+  return (r.json(), r1.json())
+
+tickets, tickets1 = get_all_open_tickets()
+
+for ticket in tickets:
+  print(ticket['display_id'],ticket['requester_name'], ticket['subject'])
+for ticket in tickets1:
+  print(ticket['display_id'],ticket['requester_name'], ticket['subject'])
