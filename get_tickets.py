@@ -25,7 +25,9 @@ def get_all_open_tickets():
 
 tickets, tickets1 = get_all_open_tickets()
 
-for ticket in tickets:
-  print(ticket['display_id'],ticket['requester_name'], ticket['subject'])
-for ticket in tickets1:
-  print(ticket['display_id'],ticket['requester_name'], ticket['subject'])
+#for stuff in tickets[1]:
+#  print(stuff)
+#for ticket in tickets:
+#  print(ticket['display_id'],ticket['requester_name'], ticket['subject'])
+#for ticket in tickets1:
+#  print(ticket['display_id'],ticket['requester_name'], ticket['subject'])
