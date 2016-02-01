@@ -3,6 +3,7 @@ import json
 import requests
 import base64
 import configparser
+import sqlite3
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -22,5 +23,20 @@ def get_all_agents():
 
 agents  = get_all_agents()
 
+connect = sqlite3.connect('agents.db')
+cursor = connect.cursor()
+cursor.execute('''CREATE TABLE IF NOT EXISTS agents
+                  (agent_id text,
+                  email text,
+                  name text,
+                  user_id text)''')
+
 for agent in agents:
-  print(agent)
+  agent_id = agent['agent']['id']
+  email = agent['agent']['user']['email']
+  name = agent['agent']['user']['name']
+  user_id = agent['agent']['user']['id']
+  a = (agent_id, email, name, user_id)
+  cursor.execute('INSERT INTO agents (agent_id, email, name, user_id) VALUES (?,?,?,?)', a)
+
+connect.commit()
