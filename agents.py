@@ -23,7 +23,7 @@ def get_all_agents():
 
 agents  = get_all_agents()
 
-connect = sqlite3.connect('agents.db')
+connect = sqlite3.connect('freshdata.db')
 cursor = connect.cursor()
 cursor.execute('''CREATE TABLE IF NOT EXISTS agents
                   (agent_id text,
