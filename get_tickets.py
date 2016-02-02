@@ -30,7 +30,7 @@ db_connect = sqlite3.connect('freshdata.db')
 cursor = db_connect.cursor()
 cursor.execute('''CREATE TABLE IF NOT EXISTS tickets
                   (created_at text,
-                  agent text,
+                  agent_id text,
                   ticket_number text,
                   subject text,
                   due_by text,
@@ -48,12 +48,12 @@ def add_tickets_to_db():
       data = []
       data.append(ticket['created_at'])
       data.append(ticket['responder_id'])
-      data.append(ticket['id'])
+      data.append(ticket['display_id'])
       data.append(ticket['subject'])
       data.append(ticket['due_by'])
       data.append(ticket['requester_name'])
       data.append(ticket['priority'])
-      cursor.execute('''INSERT INTO tickets (created_at, agent, ticket_number,
+      cursor.execute('''INSERT INTO tickets (created_at, agent_id, ticket_number,
       subject, due_by, requester, priority) VALUES (?, ?, ?, ?, ?, ?, ?)''', data)
   for ticket in tickets1:
     ticket_id = cursor.execute('''SELECT * FROM tickets WHERE ticket_number=?''',
@@ -64,12 +64,12 @@ def add_tickets_to_db():
       data = []
       data.append(ticket['created_at'])
       data.append(ticket['responder_id'])
-      data.append(ticket['id'])
+      data.append(ticket['display_id'])
       data.append(ticket['subject'])
       data.append(ticket['due_by'])
       data.append(ticket['requester_name'])
       data.append(ticket['priority'])
-      cursor.execute('''INSERT INTO tickets (created_at, agent, ticket_number,
+      cursor.execute('''INSERT INTO tickets (created_at, agent_id, ticket_number,
       subject, due_by, requester, priority) VALUES (?, ?, ?, ?, ?, ?, ?)''', data)
     #print(ticket['created_at'],ticket['responder_id'],ticket['id'],ticket['subject'],ticket['due_by'],ticket['requester_name'],ticket['priority'])
 add_tickets_to_db()

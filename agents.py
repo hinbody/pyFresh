@@ -26,17 +26,17 @@ agents  = get_all_agents()
 connect = sqlite3.connect('freshdata.db')
 cursor = connect.cursor()
 cursor.execute('''CREATE TABLE IF NOT EXISTS agents
-                  (agent_id text,
+                  (id text,
+                  user_id text,
                   email text,
-                  name text,
-                  user_id text)''')
+                  name text)''')
 
 for agent in agents:
   agent_id = agent['agent']['id']
+  user_id = agent['agent']['user']['id']
   email = agent['agent']['user']['email']
   name = agent['agent']['user']['name']
-  user_id = agent['agent']['user']['id']
-  a = (agent_id, email, name, user_id)
-  cursor.execute('INSERT INTO agents (agent_id, email, name, user_id) VALUES (?,?,?,?)', a)
+  a = (agent_id, user_id, email, name,)
+  cursor.execute('INSERT INTO agents (id, user_id, email, name) VALUES (?,?,?,?)', a)
 
 connect.commit()
