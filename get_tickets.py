@@ -4,6 +4,7 @@ import requests
 import base64
 import configparser
 import sqlite3
+import datetime
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -30,6 +31,7 @@ db_connect = sqlite3.connect('freshdata.db')
 cursor = db_connect.cursor()
 cursor.execute('''CREATE TABLE IF NOT EXISTS tickets
                   (created_at text,
+                  entered_at text,
                   agent_id text,
                   ticket_number text,
                   subject text,
@@ -53,8 +55,10 @@ def add_tickets_to_db():
       data.append(ticket['due_by'])
       data.append(ticket['requester_name'])
       data.append(ticket['priority'])
+      data.append(datetime.datetime.now().isoformat())
       cursor.execute('''INSERT INTO tickets (created_at, agent_id, ticket_number,
-      subject, due_by, requester, priority) VALUES (?, ?, ?, ?, ?, ?, ?)''', data)
+      subject, due_by, requester, priority, entered_at) VALUES (?, ?, ?, ?, ?,
+      ?, ?, ?)''', data)
   for ticket in tickets1:
     ticket_id = cursor.execute('''SELECT * FROM tickets WHERE ticket_number=?''',
         (ticket['id'],))
