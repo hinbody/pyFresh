@@ -16,7 +16,6 @@ for agent in agents:
     fhand.write('+ ' + field +'\n')
   fhand.write('\n')
 
-fhand.write('test')
 fhand.close()
 #for agent in agents:
 #  print(agent)
