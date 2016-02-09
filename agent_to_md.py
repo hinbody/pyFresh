@@ -13,7 +13,8 @@ fhand.write(header)
 for agent in agents:
   fhand.write('## ' + agent[3] + '\n')
   for field in agent:
-    fhand.write(field +'\n')
+    fhand.write('+' + field +'\n')
+  fhand.write('\n')
 
 fhand.write('test')
 fhand.close()
