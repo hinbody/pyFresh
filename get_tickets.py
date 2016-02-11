@@ -39,7 +39,22 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS tickets
                   requester text,
                   priority text)''')
 
+cursor.execute('''CREATE TABLE IF NOT EXISTS ticketarchive
+                  (created_at text,
+                  entered_at text,
+                  agent_id text,
+                  ticket_number text,
+                  subject text,
+                  due_by text,
+                  requester text,
+                  priority text)''')
+
 def add_tickets_to_db():
+  archive_open_tickets = """INSERT INTO ticketarchive
+                            SELECT * FROM tickets"""
+  clear_tickets = """DELETE FROM tickets"""
+  cursor.execute(archive_open_tickets)
+  cursor.execute(clear_tickets)
   for ticket in tickets:
     ticket_number = ticket['id']
     ticket_id = cursor.execute('''SELECT * FROM tickets WHERE
