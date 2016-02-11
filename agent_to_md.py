@@ -17,5 +17,3 @@ for agent in agents:
   fhand.write('\n')
 
 fhand.close()
-#for agent in agents:
-#  print(agent)
